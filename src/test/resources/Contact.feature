@@ -8,3 +8,4 @@ Feature: Navegación a Contact desde LG Ads
     And I should see the Contact page titles
     When I click the LG Ad Solutions link
     Then I should be redirected to the homepage
+    And I should see the welcome text "Welcome to the Future of TV Advertising"

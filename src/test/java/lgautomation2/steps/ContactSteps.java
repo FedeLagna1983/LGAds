@@ -117,11 +117,24 @@ public class ContactSteps {
                 assertEquals("La URL debe ser https://lgads.tv/", "https://lgads.tv/", currentUrl);
             }
             System.out.println("✅ Página de Homepage verificada correctamente");
+        } catch (Exception e) {
+            System.err.println("❌ Error en validación: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Then("I should see the welcome text {string}")
+    public void iShouldSeeTheWelcomeText(String expectedText) {
+        try {
+            By welcomeText = Objects.requireNonNull(By.xpath("//*[contains(text(), '" + expectedText + "')]"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(welcomeText));
+            assertTrue("El texto de bienvenida debe estar visible", driver.findElement(welcomeText).isDisplayed());
+            System.out.println("✅ Texto de bienvenida verificado: " + expectedText);
             System.out.println("✅ TEST PASSED: Navegación completa exitosa");
             driver.quit();
             System.out.println("✅ Navegador cerrado correctamente");
         } catch (Exception e) {
-            System.err.println("❌ Error en validación final: " + e.getMessage());
+            System.err.println("❌ Error al verificar texto de bienvenida: " + e.getMessage());
             if (driver != null) {
                 driver.quit();
             }
