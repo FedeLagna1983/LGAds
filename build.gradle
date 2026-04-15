@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Selenium + WebDriverManager
+    implementation 'org.seleniumhq.selenium:selenium-java:4.33.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:6.1.0'
+
+    // Cucumber + JUnit 4
+    implementation 'io.cucumber:cucumber-java:7.22.2'
+    testImplementation 'io.cucumber:cucumber-junit:7.22.2'
+    testImplementation 'junit:junit:4.13.2'  // ¡Necesario para usar @RunWith con JUnit 4!
+
+    // Logging (opcional pero útil)
+    implementation 'org.slf4j:slf4j-simple:2.0.13'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.named('test') {
+    useJUnit()  // Asegura ejecución de JUnit 4
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/java']
+        resources.srcDirs = ['src/test/resources']
+    }
+}
+
+
+
+
+
+
+
+
